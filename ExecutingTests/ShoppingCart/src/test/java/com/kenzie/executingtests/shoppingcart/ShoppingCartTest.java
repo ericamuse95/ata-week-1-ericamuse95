@@ -51,8 +51,8 @@ public class ShoppingCartTest {
         pass = tester.updateQuantity_updateExistingItemWithZeroQuantity_removesItemFromShoppingCart() && pass;
         // PARTICIPANTS: uncomment the following two lines
         //
-        //pass = tester.updateQuantity_withNullItemName_isRejected() && pass;
-        //pass = tester.updateQuantity_withEmptyItemName_isRejected() && pass;
+        pass = tester.updateQuantity_withNullItemName_isRejected() && pass;
+        pass = tester.updateQuantity_withEmptyItemName_isRejected() && pass;
 
         if (!pass) {
             String errorMessage = "\n/!\\ /!\\ /!\\ The updateQuantity() method tests failed. Test aborted. "
@@ -103,7 +103,7 @@ public class ShoppingCartTest {
         ShoppingCart cart = new ShoppingCart();
 
         // WHEN - Add a new item by calling `addItem()` with non-empty itemName, negative quantity
-        boolean result = cart.addItem("Desk chair", 2);
+        boolean result = cart.addItem("Desk chair", -2);
 
         // THEN
         // `addItem()` returns false
@@ -127,7 +127,7 @@ public class ShoppingCartTest {
         ShoppingCart cart = new ShoppingCart();
 
         // WHEN - Add a new item by calling `addItem()` with non-empty itemName, zero quantity
-        boolean result = cart.addItem("Head First Java", 2);
+        boolean result = cart.addItem("Head First Java", 0);
 
         // THEN
         // `addItem()` returns false
@@ -188,7 +188,7 @@ public class ShoppingCartTest {
         int replacementQuantity = 4;
 
         // WHEN - Call `updateQuantity()` with null itemName and positive quantity
-        boolean result = cart.updateQuantity("Binoculars", replacementQuantity);
+        boolean result = cart.updateQuantity(null, replacementQuantity);
 
         // THEN
         // `updateQuantity()` returns false
@@ -220,7 +220,7 @@ public class ShoppingCartTest {
         int replacementQuantity = 3;
 
         // WHEN - Call `updateQuantity()` with itemName "" and positive quantity
-        boolean result = cart.updateQuantity("HDMI Cables (set of 6)", replacementQuantity);
+        boolean result = cart.updateQuantity("", replacementQuantity);
 
         // THEN
         // `updateQuantity()` returns false
@@ -249,6 +249,7 @@ public class ShoppingCartTest {
      * @param args Command line arguments (ignored).
      */
     public static void main(String[] args) {
+
         ShoppingCartTest tester = new ShoppingCartTest();
         tester.runAllTests();
     }
